@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "332701672100",
+    "project_id": "rehmani-foods",
+    "storage_bucket": "rehmani-foods.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332701672100:android:229c800c89d1ad256d7c31",
+        "android_client_info": {
+          "package_name": "com.example.rehmani_foods"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332701672100-k2kh107om303f151b830ta15rd033dom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rehmani_foods",
+            "certificate_hash": "50e7892bdc688df248d0988b70a97788a05de1c5"
+          }
+        },
+        {
+          "client_id": "332701672100-bj04mc40315unqu8ub36p2e325g8dsc8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh7srRjDKEsE2GAzIKH0a2edsbcYv4YUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332701672100-bj04mc40315unqu8ub36p2e325g8dsc8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
