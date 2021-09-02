@@ -168,6 +168,7 @@ class _CateringOrderState extends State<CateringOrder> {
             decoration: BoxDecoration(
               color: kWhite,
               borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: kPrimary),
               boxShadow: [
                 BoxShadow(
                   color: kBlack.withOpacity(0.1),

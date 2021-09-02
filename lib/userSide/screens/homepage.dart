@@ -155,7 +155,7 @@ class _HomepageState extends State<Homepage> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Center(
               child: Text('Welcome',
-                  style: TextStyle(color: kBlack, fontSize: 29)),
+                  style: TextStyle(color: kPrimary, fontWeight: FontWeight.bold, fontSize: 30)),
             ),
             SizedBox(
               height: size.height * 0.02,
