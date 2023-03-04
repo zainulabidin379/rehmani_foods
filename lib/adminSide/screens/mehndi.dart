@@ -94,68 +94,91 @@ class _MehndiState extends State<Mehndi> {
   Widget serviceCard(Size size, String id, String serviceName, double rate) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.16,
-        secondaryActions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => new AlertDialog(
-                    title: new Text('Are you sure?'),
-                    content: new Text('Do you want to delete $serviceName?'),
-                    actions: <Widget>[
-                      new TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: new Text('No', style: TextStyle(color: kBlack)),
-                      ),
-                      new TextButton(
-                        onPressed: () async {
-                          FirebaseFirestore.instance
-                              .collection('eventManagement')
-                              .doc(id)
-                              .delete()
-                              .catchError((e) {
-                            print(e);
-                          });
-                          Navigator.of(context).pop();
-                          setState(() {});
-                          Get.snackbar(
-                            '',
-                            "$serviceName is deleted from database",
-                            titleText: Text('Menu Deleted!',
-                                style: TextStyle(
-                                    color: kPrimary,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20)),
-                            duration: Duration(seconds: 4),
-                            backgroundColor: kWhite,
-                            colorText: kBlack,
-                            borderRadius: 10,
-                          );
-                        },
-                        child: new Text('Yes',
-                            style: TextStyle(color: Colors.red)),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Container(
-                height: 70,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  FontAwesomeIcons.trash,
-                  color: kWhite,
-                ),
+      actionExtentRatio: 0.16,
+      secondaryActions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 4.0),
+          child: GestureDetector(
+            onTap: () {
+              Get.to(() =>
+                      UpdateMenu(menuName: serviceName, rate: rate, id: id))
+                  .then((value) {
+                setState(() {});
+              });
+            },
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              child: Icon(
+                FontAwesomeIcons.pen,
+                color: kWhite,
               ),
             ),
-          )
-        ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 4.0),
+          child: GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => new AlertDialog(
+                  title: new Text('Are you sure?'),
+                  content: new Text('Do you want to delete $serviceName?'),
+                  actions: <Widget>[
+                    new TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: new Text('No', style: TextStyle(color: kBlack)),
+                    ),
+                    new TextButton(
+                      onPressed: () async {
+                        FirebaseFirestore.instance
+                            .collection('eventManagement')
+                            .doc(id)
+                            .delete()
+                            .catchError((e) {
+                          print(e);
+                        });
+                        Navigator.of(context).pop();
+                        setState(() {});
+                        Get.snackbar(
+                          '',
+                          "$serviceName is deleted from database",
+                          titleText: Text('Menu Deleted!',
+                              style: TextStyle(
+                                  color: kPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20)),
+                          duration: Duration(seconds: 4),
+                          backgroundColor: kWhite,
+                          colorText: kBlack,
+                          borderRadius: 10,
+                        );
+                      },
+                      child:
+                          new Text('Yes', style: TextStyle(color: Colors.red)),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: Container(
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                FontAwesomeIcons.trash,
+                color: kWhite,
+              ),
+            ),
+          ),
+        )
+      ],
       child: GestureDetector(
         onTap: () {
           Get.to(() => MenuDetails(
@@ -173,6 +196,7 @@ class _MehndiState extends State<Mehndi> {
               decoration: BoxDecoration(
                 color: kWhite,
                 borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: kPrimary),
                 boxShadow: [
                   BoxShadow(
                     color: kBlack.withOpacity(0.1),
@@ -185,7 +209,8 @@ class _MehndiState extends State<Mehndi> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Center(
-                  child: AutoSizeText(serviceName,
+                  child: AutoSizeText(
+                      "$serviceName - ${rate.toInt()} per person",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: kBodyText.copyWith(

@@ -4,24 +4,39 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rehmani_foods/userSide/shared/shared.dart';
 
-class AddInventoryItem extends StatefulWidget {
-  AddInventoryItem({Key key}) : super(key: key);
+class UpdateMenu extends StatefulWidget {
+  final String menuName;
+  final double rate;
+  final String id;
+  UpdateMenu({Key key, this.menuName, this.rate, this.id}) : super(key: key);
 
   @override
-  _AddInventoryItemState createState() => _AddInventoryItemState();
+  _UpdateMenuState createState() => _UpdateMenuState();
 }
 
-class _AddInventoryItemState extends State<AddInventoryItem> {
+class _UpdateMenuState extends State<UpdateMenu> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _item = new TextEditingController();
-  TextEditingController _weight = new TextEditingController();
+  TextEditingController _menuName = new TextEditingController();
+  TextEditingController _rate = new TextEditingController();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
-    _item.dispose();
-    _weight.dispose();
+    _rate.dispose();
+    _menuName.dispose();
     super.dispose();
+  }
+
+  updateMenu() {
+    setState(() {
+      _rate.text = widget.rate.toString();
+      _menuName.text = widget.menuName;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateMenu();
   }
 
   @override
@@ -31,7 +46,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
       backgroundColor: kBg,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Add Item to Inventory',
+        title: Text('Update Menu',
             style: GoogleFonts.dosis(
               color: kPrimary,
               fontSize: 27,
@@ -55,7 +70,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: size.width * 0.05),
-                Text('Enter item details',
+                Text('Update Menu Details',
                     textAlign: TextAlign.center,
                     style: kBodyText.copyWith(fontSize: size.width * 0.06)),
                 SizedBox(height: size.width * 0.01),
@@ -68,8 +83,8 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 20),
                           child: TextFormField(
-                              controller: _item,
-                              keyboardType: TextInputType.number,
+                              controller: _menuName,
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               style: kBodyText,
                               cursorColor: kPrimary,
@@ -79,12 +94,12 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                                   top: 15,
                                   bottom: 15,
                                 ),
-                                labelText: 'Item Name',
+                                labelText: 'Menu Name',
                                 labelStyle:
                                     TextStyle(color: kPrimary, fontSize: 18),
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
-                                hintText: 'Enter item name',
+                                hintText: 'Enter menu name',
                                 hintStyle: TextStyle(
                                     color: Colors.black54, fontSize: 19),
                                 enabledBorder: OutlineInputBorder(
@@ -105,11 +120,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                               ),
                               validator: (val) {
                                 if (val.isEmpty)
-                                  return 'Please enter item name';
-
-                                if (val.length < 3) {
-                                  return 'Please enter valid item name';
-                                }
+                                  return 'Please enter menu name';
                                 return null;
                               }),
                         ),
@@ -117,7 +128,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 20),
                           child: TextFormField(
-                              controller: _weight,
+                              controller: _rate,
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                               style: kBodyText,
@@ -128,12 +139,12 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                                   top: 15,
                                   bottom: 15,
                                 ),
-                                labelText: 'Item Weight',
+                                labelText: 'Rate',
                                 labelStyle:
                                     TextStyle(color: kPrimary, fontSize: 18),
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
-                                hintText: 'Enter item weight in Kg',
+                                hintText: 'Enter rate',
                                 hintStyle: TextStyle(
                                     color: Colors.black54, fontSize: 19),
                                 enabledBorder: OutlineInputBorder(
@@ -154,8 +165,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                               ),
                               validator: (val) {
                                 if (val.isEmpty)
-                                  return 'Please enter item weight in Kg';
-
+                                  return 'Please enter menu rate';
                                 return null;
                               }),
                         ),
@@ -174,16 +184,19 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                                       AlwaysStoppedAnimation<Color>(kPrimary))),
                         );
 
-                        var collectionRef = await FirebaseFirestore.instance
-                            .collection('inventory')
-                            .doc(_item.text)
-                            .get();
-                        if (collectionRef.exists) {
+                        FirebaseFirestore.instance
+                            .collection('eventManagement')
+                            .doc(widget.id)
+                            .update({
+                          "menu": _menuName.text,
+                          "rate": double.parse(_rate.text),
+                        }).then((_) async {
+                          Navigator.pop(context);
                           Navigator.pop(context);
                           Get.snackbar(
                             '',
-                            "This item already exists in inventory",
-                            titleText: Text('Item Already Exist!',
+                            "Menu is successfully updated",
+                            titleText: Text('Menu Updated',
                                 style: TextStyle(
                                     color: kPrimary,
                                     fontWeight: FontWeight.bold,
@@ -193,36 +206,10 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                             colorText: kBlack,
                             borderRadius: 10,
                           );
-                        } else {
-                          FirebaseFirestore.instance
-                              .collection('inventory')
-                              .doc(_item.text)
-                              .set({
-                            "itemName": _item.text,
-                            "itemWeight": _weight.text,
-                            "unit": 'Kg',
-                            "timestamp": DateTime.now(),
-                          }).then((_) async {
-                          Navigator.pop(context);
-                          Navigator.pop(context); 
-                            Get.snackbar(
-                              '',
-                              "Item is successfully added in inventory",
-                              titleText: Text('Item Added',
-                                  style: TextStyle(
-                                      color: kPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20)),
-                              duration: Duration(seconds: 4),
-                              backgroundColor: kWhite,
-                              colorText: kBlack,
-                              borderRadius: 10,
-                            );
-                          }).catchError((onError) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(content: Text(onError)));
-                          });
-                        }
+                        }).catchError((onError) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(onError)));
+                        });
                       }
                     },
                     child: Container(
@@ -236,7 +223,7 @@ class _AddInventoryItemState extends State<AddInventoryItem> {
                       ),
                       child: Center(
                         child: Text(
-                          'Add To Inventory',
+                          'Update Menu',
                           style: kBodyText.copyWith(
                               fontWeight: FontWeight.bold, color: kWhite),
                         ),

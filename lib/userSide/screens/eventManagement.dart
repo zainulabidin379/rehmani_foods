@@ -15,7 +15,6 @@ class EventManagement extends StatefulWidget {
 }
 
 class _EventManagementState extends State<EventManagement> {
-
   int cartItemsCount = 0;
   Future getCartItems() async {
     String uid = FirebaseAuth.instance.currentUser.uid;
@@ -121,6 +120,140 @@ class _EventManagementState extends State<EventManagement> {
               });
             });
           }, 'Barat/Walima', 'walima.jpg'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 13),
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    height: size.height * 0.2,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: kPrimary),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        topLeft: Radius.circular(16),
+                        bottomLeft: Radius.zero,
+                        bottomRight: Radius.zero,
+                      ),
+                      color: kWhite,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Live Tandoor',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Plater Service',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Mineral Water',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Soup',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Cold Drink',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * 0.01),
+                                child: Text(
+                                  '- Kashmiri Tea',
+                                  style: kBodyText.copyWith(
+                                    fontSize: 20,
+                                    color: kBlack,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      color: kPrimary,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.zero,
+                        topLeft: Radius.zero,
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Extra Charges',
+                        style: kBodyText.copyWith(
+                            fontSize: 25,
+                            color: kWhite,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       )),
     );

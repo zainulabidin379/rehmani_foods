@@ -491,8 +491,12 @@ class _MyOrdersState extends State<MyOrders> {
 
                                 await FirebaseFirestore.instance
                                     .collection('myOrders')
+                                    .doc('orders')
+                                    .collection(uid)
                                     .doc(id)
                                     .delete();
+                                Navigator.pop(context);
+                                Navigator.pop(context);
 
                                 Get.snackbar(
                                   '',

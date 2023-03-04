@@ -73,7 +73,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                               vertical: 10.0, horizontal: 20),
                           child: TextFormField(
                               controller: _name,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               style: kBodyText,
                               cursorColor: kPrimary,

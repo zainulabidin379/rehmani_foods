@@ -55,18 +55,9 @@ class _AdminHomepageState extends State<AdminHomepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => PendingOrders())
-                        },
+                menuCard(size, () => {Get.to(() => PendingOrders())},
                     'Pending Orders'),
-                    
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => ConfirmedOrders())
-                        },
+                menuCard(size, () => {Get.to(() => ConfirmedOrders())},
                     'Confirmed Orders'),
               ],
             ),
@@ -74,18 +65,9 @@ class _AdminHomepageState extends State<AdminHomepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => CompletedOrders())
-                        },
+                menuCard(size, () => {Get.to(() => CompletedOrders())},
                     'Completed Orders'),
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => Inventory()),
-                        },
-                    'Inventory'),
+                menuCard(size, () => {Get.to(() => Employees())}, 'Employees'),
               ],
             ),
             //3rd ROW
@@ -95,51 +77,39 @@ class _AdminHomepageState extends State<AdminHomepage> {
                 menuCard(
                     size,
                     () => {
-                          Get.to(() => Employees())
-                        },
-                    'Employees'),
-                menuCard(
-                    size,
-                    () => {
                           Get.to(() => UserFeedbacks()),
                         },
                     'User Feedbacks'),
-              ],
-            ),
-            //4th ROW
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
                 menuCard(
                     size,
                     () => {
                           Get.to(() => FeaturedItems()),
                         },
                     'Featured Items'),
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => CookingServices())
-                        },
+              ],
+            ),
+            //4th ROW
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                menuCard(size, () => {Get.to(() => CookingServices())},
                     'Cooking Services'),
+                menuCard(size, () => {Get.to(() => CateringServices())},
+                    'Catering Services'),
               ],
             ),
             //5th ROW
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => CateringServices())
-                        },
-                    'Catering Services'),
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => EventManagement())
-                        },
+                menuCard(size, () => {Get.to(() => EventManagement())},
                     'Event Management'),
+                menuCard(
+                    size,
+                    () => {
+                          Get.to(() => Users()),
+                        },
+                    'Users'),
               ],
             ),
 
@@ -147,12 +117,6 @@ class _AdminHomepageState extends State<AdminHomepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                menuCard(
-                    size,
-                    () => {
-                          Get.to(() => Users()),
-                        },
-                    'Users'),
                 menuCard(
                     size,
                     () => {

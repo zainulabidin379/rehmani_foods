@@ -82,7 +82,7 @@ class _AddCateringServicesState extends State<AddCateringServices> {
         backgroundColor: kBg,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Add Cooking Service',
+          title: Text('Add Catering Service',
               style: GoogleFonts.dosis(
                 color: kPrimary,
                 fontSize: 27,

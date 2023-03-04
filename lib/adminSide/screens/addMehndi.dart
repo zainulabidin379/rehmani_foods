@@ -176,7 +176,7 @@ class _AddMehndiMenuState extends State<AddMehndiMenu> {
                         .collection('eventManagement')
                         .doc(id)
                         .set({
-                      "menu": "${_name.text} - ${_rate.text} per person",
+                      "menu": _name.text,
                       "id": id,
                       "rate": double.parse(_rate.text),
                       "event": 'mehndi',
